@@ -1,0 +1,180 @@
+Parcial 2021 parte 2:
+
+Ejercicio 1:
+
+
+Teniendo en cuenta que se representa con un Grafo Dirigido en el qué los nodos son representados por aeropuertos y las aristas por caminos hacia esos aeropuertos 
+
+La idea es utilizar búsqueda en profundidad, si al terminar el algoritmo, todos los nodos han sido visitados, entonces podemos decir qué desde ese aeropuerto inicial se puede llegar a todos los otros.
+
+
+precondiciones:
+
+-El grafo no debe estar vacio
+
+-Deben de haber al menos 2 aeropuertos(ya qué sino desde el aeropuerto inicial no se va a poder llegar a ningún otro)
+
+
+post Condiciones:
+
+-El algoritmo debe devolver verdadero si hay un camino de el aeropuerto inicial(a) a todos los otros aeropuertos.
+
+
+Pseudocódigo:
+
+
+
+Método Tvertice.bpf()
+
+  COM
+   visitar() //Visitamos el aeropuerto inicial
+    Para cada adyacente w hacer
+    Si no(w.visitado() entonces
+      w.bpf()     
+    fin para cada
+
+   fin bpf
+
+
+
+Método TGrafoDirigido.alcanceTotal(Comparable nombreAeropuerto)
+
+  Tvertice aeropuertoVerticeInicial = this.buscarVertice(nombreAeropuerto)
+
+  aeropuertoVerticeInicial.bpf()
+
+// al principio marcamos todos los vértices como no visitados.
+
+  para cada a en  this.obtenerVetices()
+ 
+  v.setVisitado(fals)
+
+ fin para cada
+
+
+  para cada aeropuerto a en this.obtenerVertices()
+
+    si no  a.visitado() entonces
+
+     devolver falso
+    
+    fin para cada
+
+devolver verdadero.
+    
+  
+
+Orden de tiempo de ejecución O(V + E) donde V es el número de vértices y E es el número de aristas.
+ 
+
+
+Ejercicio 2:
+
+
+
+Lo que haría sería una búsqueda en amplitud hacia el vértice 2 que es el vértice destino, BEA es exactamente lo que necesito para este problema ya qué como visita los adyacentes para luego visitar los descendientes, me aseguro de qué en la primera iteracción que llegue al destino lo haga en la menor cantidad de saltos posibles.
+
+
+PreCondiciones:
+
+- el grafo debe tener al menos dos servidores
+
+
+Postcondiciones:
+
+-El algoritmo debe devolver la ruta con menos saltos los dos servidores pasados por parámetro.
+
+
+
+
+Tvertice beaHastaDestino(Comparable destino)
+
+Cola<Tvertice> cola = nuevaCola<Tvertice>()
+
+
+Mapa<Tvertice, Tvertice> predecesores = nuevo Mapa<Tvertice, Tvertice>()
+
+listaResultado = nueva Lista<servidor>()
+
+COM
+ 
+  visitar()
+
+  cola.insertar(this)
+
+
+
+
+ mientras no cola.vacia()
+
+  Tvertice actual = cola.desencolar()
+
+  //Obtenemos el camino de menor costo entre el actual y el destino
+
+  si actual.ObtenerEtiqueta == destino
+   
+     mientras actual <> nulo
+
+     listaResultado.añadirAlInicio(actual.precedesor())
+
+     actual = predecesores.obtener(actual)
+     fin mientras
+
+  devolver resultado
+
+  fin si
+
+  para cada vertice y en actual.obtenerPredecesores()
+
+   si no y.Visitado() entonces
+
+     y.visitar()
+   
+     cola.insertar(y)
+     predecesores.insertar(adyacente,actual)
+
+
+  fin si
+
+ fin para cada
+
+fin Mientras
+
+devolver nulo
+
+FIN
+
+   
+    
+
+TgrafoDirigido Lista<servidor>rutaMenosSaltos(Comparable servidor1, Comparale servidor2) 
+
+  Tvertice verticeOrigen = this.buscarVertice(servidor1)
+
+  Tvertice verticeDestino = this.buscarVertice(servidor2)
+
+  si veriticeOrigen = nulo o verticeDestino = nulo
+
+    devolver nulo
+
+
+
+  // al principio marcamos todos los vértices como no visitados.
+
+  para cada v en  this.ObtenerVertices()
+ 
+  v.setVisitado(fals)
+
+ fin para cada
+
+List<servidor> listaResultado = verticeOrigen.beaHastaDestino(servidor2)
+
+
+devolver listaResutado 
+
+
+ 
+
+ORDEN DE TIEMPO DE EJECUCIÓN O(V + E) donde V = número de vértices E = número de aristas
+
+
